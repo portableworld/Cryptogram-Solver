@@ -20,7 +20,7 @@ class Solver
     end
   end
 
-  def find_word(word)
+  def self.find_word(word)
 
     encrypted_word = encrypt_word(word)
 
