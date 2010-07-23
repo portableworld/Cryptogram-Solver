@@ -1,11 +1,12 @@
-class Solver
+class Puzzle
   attr :puzzle
   attr :solution
+
+  @@dict = File.readlines("dictionary.txt").map{|x| x.chomp}
 
   def initialize(puzzle = "")
     raise TypeError, "String argument expected" unless puzzle.is_a? String
     @puzzle = puzzle
-    @dict = File.readlines("dictionary.txt").map{|x| x.chomp}
   end
 
   def solve
