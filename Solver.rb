@@ -1,31 +1,61 @@
-class Solver
+class Puzzle
   attr :puzzle
   attr :solution
+
+  @@dict = File.readlines("dictionary.txt").map{|x| x.chomp}
 
   def initialize(puzzle = "")
     raise TypeError, "String argument expected" unless puzzle.is_a? String
     @puzzle = puzzle
-    @dict = File.readlines("dictionary.txt").map{|x| x.chomp}
+
   end
 
   def solve
+    # .empty? perhaps
     if @puzzle != ""
       # Start Timer
       # Call private method for solving
-      @solution = "The answer"
-      puts @solution
+      solve_puzzle
+      #puts @solution
     else
       # Tell user there is no puzzle to solve
       puts "You haven't given me a puzzle to solve"
     end
   end
 
-  def find_word(word)
+  ## Assignment Methods ##
+
+  def solution=(msg)
+    puts "Please do not alter the solution"
+  end
+
+  def puzzle=(puzzle)
+    raise TypeError, "String argument expected" unless puzzle.is_a? String
+    @puzzle = puzzle
+  end
+  
+  
+  private
+  
+  def solve_puzzle
+    # Find longest word in puzzle
+    longest_word = find_longest_word
+    # Solve that word
+    solve_word(longest_word)
+  end
+  
+
+  def find_longest_word
+    words = @puzzle.split
+    longest = words.max {|a,b| a.length <=> b.length}
+  end
+  
+  def solve_word(word)
 
     encrypted_word = encrypt_word(word)
 
     possible_solutions = {}
-    @dict.each {|w|
+    @@dict.each {|w|
       if w.length == word.length
         possible_solutions[w] = encrypt_word(w)
       end
@@ -57,15 +87,5 @@ class Solver
     return new_word.join
   end
 
-  ## Assignment Methods ##
 
-  def solution=(msg)
-    puts "Please do not alter the solution"
-  end
-
-  def puzzle=(puzzle)
-    raise TypeError, "String argument expected" unless puzzle.is_a? String
-    @puzzle = puzzle
-  end
 end
-
