@@ -89,4 +89,3 @@ class Puzzle
 
 
 end
-
