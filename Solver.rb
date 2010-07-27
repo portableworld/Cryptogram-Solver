@@ -1,4 +1,5 @@
 class Puzzle
+
   attr :puzzle
   attr :solution
 
